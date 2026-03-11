@@ -7,7 +7,7 @@ using System.Text;
 using Konscious.Security.Cryptography;
 using Microsoft.Extensions.Options;
 
-namespace Argon2ID;
+namespace NukeRouter;
 
 /// <summary>
 /// Provides cryptographic hashing and verification for passwords utilizing the Argon2id key derivation function.
@@ -137,7 +137,7 @@ public class Argon2ID(IOptions<Argon2IDOptions> options)
     /// <returns>The size in bytes of the decoded payload.</returns>
     private static int ExtractHashSize(string hash)
     {
-        int byteSize = Convert.FromBase64String(hash).Length;
+        int byteSize = DecodeUrlSafe(hash).Length;
 
         return byteSize;
     }
@@ -150,7 +150,7 @@ public class Argon2ID(IOptions<Argon2IDOptions> options)
     private static string EncodeUrlSafe(byte[] buffer)
     {
         string hash = Convert.ToBase64String(buffer);
-        string base64Hash = hash.Replace("+", "#").Replace("/", "-");
+        string base64Hash = hash.Replace("+", "-").Replace("/", "_");
         return base64Hash;
     }
 
@@ -161,7 +161,7 @@ public class Argon2ID(IOptions<Argon2IDOptions> options)
     /// <returns>The decoded raw cryptographic material.</returns>
     private static byte[] DecodeUrlSafe(string base64Hash)
     {
-        string hash = base64Hash.Replace("#", "+").Replace("-", "/");
+        string hash = base64Hash.Replace("-", "+").Replace("_", "/");
         return Convert.FromBase64String(hash);
     }
 

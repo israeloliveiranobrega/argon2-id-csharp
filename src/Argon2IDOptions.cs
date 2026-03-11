@@ -1,4 +1,4 @@
-﻿namespace Argon2ID;
+﻿namespace NukeRouter;
 
 public record Argon2IDOptions
 {
