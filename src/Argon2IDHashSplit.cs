@@ -1,4 +1,4 @@
-﻿namespace Argon2ID;
+﻿namespace NukeRouter;
 
 internal class Argon2IDHashSplit
 {

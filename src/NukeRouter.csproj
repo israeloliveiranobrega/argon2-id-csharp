@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <PackageId>NukeRouter.Argon2ID</PackageId>
+	  <Version>1.0.2</Version>
+	  <Authors>DevRitto</Authors>
+	  <Company>NukeRouter</Company>
+	  <Description>C# implementation of the winning Password Hashing Competition.</Description>
+	  <PackageTags>utilities;hash;password;security;encrypt;.net</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.2" />
+  </ItemGroup>
+
+</Project>
