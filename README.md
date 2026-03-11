@@ -62,9 +62,19 @@ builder.Services.Configure<Argon2IdOptions>(builder.Configuration.GetSection("Ar
 
 Para dados sensíveis como o `Pepper`, é arquiteturalmente incorreto o armazenamento em arquivos físicos no ambiente de produção. O [Gerenciamento Seguro de Segredos de Aplicativos](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) deve ser aplicado utilizando variáveis de ambiente. O provedor do .NET sobrescreve os dados lendo variáveis estruturadas pelo prefixo `__` (`Argon2__Pepper`).
 
-```csharp
-var pepper = builder.Configuration["Argon2:Pepper"];
-```
+> [!WARNING]
+> **Precedência de Configuração no .NET**
+> 
+> As variáveis de ambiente **sobrescrevem** os valores do `appsettings.json` devido à hierarquia de provedores do .NET. A última fonte registrada no `IConfiguration` sempre prevalece sobre as anteriores.
+>
+> **Ordem de Sobrescrita (Padrão):**
+> 1. `appsettings.json` (Base)
+> 2. `appsettings.{Environment}.json`
+> 3. **Secret Manager** (Apenas em `Development`)
+> 4. **Variáveis de Ambiente** (Sobrescreve arquivos JSON)
+> 5. **Argumentos de Linha de Comando** (Prioridade máxima)
+>
+> Para detalhes técnicos, consulte a [Documentação Oficial da Microsoft](https://learn.microsoft.com/pt-br/dotnet/core/extensions/configuration).
 
 O serviço criptográfico deve ser encapsulado e registrado no contêiner de [Injeção de Dependência do .NET](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection) para o consumo em outras camadas da aplicação:
 
