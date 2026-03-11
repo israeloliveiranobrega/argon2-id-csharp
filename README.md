@@ -68,6 +68,10 @@ var pepper = builder.Configuration["Argon2:Pepper"];
 
 O serviço criptográfico deve ser encapsulado e registrado no contêiner de [Injeção de Dependência do .NET](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection) para o consumo em outras camadas da aplicação:
 
+```csharp
+builder.Services.AddSingleton<Argon2ID>();
+```
+
 O uso correto requer a requisição da instância via Injeção de Dependência do .NET diretamente no construtor da classe consumidora, garantindo acesso imediato às funções de encriptação e verificação.
 
 ```csharp
